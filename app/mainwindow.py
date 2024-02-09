@@ -16,6 +16,7 @@ class MainWindow(QMainWindow):
         
         self.processing_pipeline = ProcessingPipeline()
         layout.addWidget(self.processing_pipeline)
+        self.file_input.data_changed.connect(self.processing_pipeline.preprocess)
 
         widget = QWidget()
         widget.setLayout(layout)

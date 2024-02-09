@@ -12,6 +12,7 @@ class ProbabilityFilter(QWidget):
         # Column to filter
         layout.addWidget(QLabel("Column to filter"))
         self.column_dropdown = QComboBox()
+        self.column_dropdown.setSizeAdjustPolicy(QComboBox.SizeAdjustPolicy.AdjustToContents)
         layout.addWidget(self.column_dropdown)
         layout.addSpacing(16)
 
