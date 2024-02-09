@@ -1,7 +1,8 @@
 from PyQt6.QtWidgets import QMainWindow, QWidget, QVBoxLayout
 import pandas as pd
 
-from .dataprocessors import ProbabilityFilter
+from .fileinput import FileInput
+from .processingpipeline import ProcessingPipeline
 
 class MainWindow(QMainWindow):
 
@@ -9,22 +10,12 @@ class MainWindow(QMainWindow):
         super().__init__()
         layout = QVBoxLayout()
         self.setWindowTitle("Pipe Cleaner")
+
+        self.file_input = FileInput()
+        layout.addWidget(self.file_input)
         
-        self.processing_modules = [
-            ProbabilityFilter(title="Filter by Probability")
-        ]
-
-        # Dummy data
-        df = pd.DataFrame({
-            "Sequence": [1, 2, 3],
-            "Probability": [4, 5, 6],
-            "Assigned Modifications": [7, 8, 9]
-        })
-
-        for module in self.processing_modules:
-            df = module.preprocess(df)
-            layout.addWidget(module)
-        layout.addStretch()
+        self.processing_pipeline = ProcessingPipeline()
+        layout.addWidget(self.processing_pipeline)
 
         widget = QWidget()
         widget.setLayout(layout)
