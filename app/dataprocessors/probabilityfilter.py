@@ -2,6 +2,7 @@ from PyQt6.QtWidgets import QWidget, QHBoxLayout, QLabel, QComboBox, QDoubleSpin
 from PyQt6.QtCore import pyqtSignal
 
 from ..processingmodule import ProcessingModule
+from ..columndropdown import ColumnDropdown
 
 @ProcessingModule
 class ProbabilityFilter(QWidget):
@@ -14,10 +15,8 @@ class ProbabilityFilter(QWidget):
 
         # Column to filter
         layout.addWidget(QLabel("Column to filter"))
-        self.column_dropdown = QComboBox()
-        self.column_dropdown.setCurrentIndex(-1)
+        self.column_dropdown = ColumnDropdown()
         self.column_dropdown.currentIndexChanged.connect(self.reprocess)
-        self.column_dropdown.setSizeAdjustPolicy(QComboBox.SizeAdjustPolicy.AdjustToContents)
         layout.addWidget(self.column_dropdown)
         layout.addSpacing(16)
 
@@ -36,19 +35,8 @@ class ProbabilityFilter(QWidget):
         self.columns = []
 
     def preprocess(self, df):
-        new_columns = list(df.select_dtypes(include='number'))
-        if new_columns == self.columns:
-            return
-
-        self.columns = new_columns
-        selected_column = self.column_dropdown.currentText()
-        self.column_dropdown.clear()
-        self.column_dropdown.addItems(self.columns)
-        if selected_column:
-            index = self.column_dropdown.findText(selected_column)
-            self.column_dropdown.setCurrentIndex(index)
-        else:
-            self.column_dropdown.setCurrentIndex(-1)
+        new_columns = df.select_dtypes(include='number')
+        self.column_dropdown.set_columns(new_columns)
 
     def process(self, df):
         if self.column_dropdown.currentIndex() == -1:
