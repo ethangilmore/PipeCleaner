@@ -1,6 +1,9 @@
 from PyQt6.QtWidgets import QFrame, QVBoxLayout, QHBoxLayout, QLabel, QCheckBox
+from PyQt6.QtCore import pyqtSignal
     
 class ProcessingModule(QFrame):
+
+    reprocess = pyqtSignal()
 
     def __init__(self, data_processor):
         super().__init__()
@@ -26,6 +29,9 @@ class ProcessingModule(QFrame):
         self.setLayout(layout)
         self.setFrameStyle(QFrame.Shape.Panel | QFrame.Shadow.Raised)
 
+        self.data_processor.reprocess.connect(self.reprocess)
+        self.active_checkbox.toggled.connect(self.reprocess)
+
     def __call__(self, title):
         self.title_label.setText(title)
         return self
@@ -34,10 +40,9 @@ class ProcessingModule(QFrame):
         self.data_processor.setEnabled(checked)
         self.title_label.setEnabled(checked)
 
-    def preprocess(self, df):
-        return self.data_processor.preprocess(df)
-    
     def process(self, df):
+        self.data_processor.preprocess(df)
+
         if self.active_checkbox.isChecked():
             return self.data_processor.process(df)
         else:

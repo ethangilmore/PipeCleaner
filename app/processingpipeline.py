@@ -1,8 +1,12 @@
 from PyQt6.QtWidgets import QWidget, QVBoxLayout
+from PyQt6.QtCore import pyqtSignal
+import pandas as pd
 
 from .dataprocessors import ProbabilityFilter, ContaminantFilter
 
 class ProcessingPipeline(QWidget):
+
+    finished_processing = pyqtSignal(pd.DataFrame)
 
     def __init__(self):
         super().__init__()
@@ -15,16 +19,17 @@ class ProcessingPipeline(QWidget):
 
         for data_processor in self.data_processors:
             layout.addWidget(data_processor)
-        layout.addStretch()
+            data_processor.reprocess.connect(self.process)
 
         self.setLayout(layout)
+        self._df = None
 
-    def preprocess(self, df):
-        for data_processor in self.data_processors:
-            df = data_processor.preprocess(df)
-        return df
+    def set_df(self, df):
+        self._df = df
+        self.process()
     
-    def process(self, df):
+    def process(self):
+        df = self._df
         for data_processor in self.data_processors:
             df = data_processor.process(df)
-        return df
+        self.finished_processing.emit(df)
