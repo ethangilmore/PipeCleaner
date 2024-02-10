@@ -53,4 +53,4 @@ class ContaminantFilter(QWidget):
         if self.column_dropdown.currentIndex() == -1 or not keywords:
             return df
 
-        return df[~df[column].str.contains('|'.join(keywords), case=False)]
+        return df[~df[column].apply(str).str.contains('|'.join(keywords), case=False)]
