@@ -1,4 +1,4 @@
-from PyQt6.QtWidgets import QFrame, QWidget, QVBoxLayout, QLabel, QListWidget
+from PyQt6.QtWidgets import QFrame, QVBoxLayout, QLabel, QListWidget, QHBoxLayout
 from PyQt6.QtCore import pyqtSignal
 
 from .fileinput import FileInput
@@ -11,8 +11,12 @@ class FileGroup(QFrame):
         super().__init__()
         layout = QVBoxLayout()
 
+        header_layout = QHBoxLayout()
+        header_layout.addWidget(QLabel("Group: "))
         self.title_label = QLabel(group_name)
-        layout.addWidget(self.title_label)
+        header_layout.addWidget(self.title_label)
+        header_layout.addStretch()
+        layout.addLayout(header_layout)
 
         self.file_list = QListWidget()
         layout.addWidget(self.file_list)

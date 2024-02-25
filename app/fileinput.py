@@ -30,7 +30,7 @@ class FileInput(QWidget):
             raise ValueError("File type not supported")
 
     def open_files(self):
-        filenames, ok = QFileDialog.getOpenFileNames(self, "Open Files", "", "CSV Files (*.csv);;TSV Files (*.tsv);;Excel Files (*.xlsx)")
+        filenames, ok = QFileDialog.getOpenFileNames(self, "Open Files", "", "TSV Files (*.tsv);;CSV Files (*.csv);;Excel Files (*.xlsx)")
         if not ok:
             return
 

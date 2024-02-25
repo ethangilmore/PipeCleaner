@@ -1,4 +1,4 @@
-from PyQt6.QtWidgets import QWidget, QHBoxLayout, QLabel, QComboBox, QDoubleSpinBox
+from PyQt6.QtWidgets import QWidget, QHBoxLayout, QLabel, QDoubleSpinBox
 from PyQt6.QtCore import pyqtSignal
 
 from ..processingmodule import ProcessingModule
@@ -27,7 +27,8 @@ class ProbabilityFilter(QWidget):
         self.threshold_spinbox.setButtonSymbols(QDoubleSpinBox.ButtonSymbols.NoButtons)
         self.threshold_spinbox.setMinimum(0)
         self.threshold_spinbox.setMaximum(100)
-        self.threshold_spinbox.setValue(95)
+        self.threshold_spinbox.setDecimals(4)
+        self.threshold_spinbox.setValue(.95)
         layout.addWidget(self.threshold_spinbox)
         layout.addStretch()
 
