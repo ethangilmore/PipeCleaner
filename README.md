@@ -4,7 +4,9 @@ Pipe Cleaner is an application to clean the data output from FragPipe and MSFrag
 
 # Installation
 
+For easy installation, a Windows exectuable can be downloaded [here](https://github.com/ethangilmore/PipeCleaner/releases/tag/v1.0.0).
 
+You may also clone this repository, install the requirements, and run main.py.
 
 # Use
 
