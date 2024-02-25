@@ -37,6 +37,9 @@ class FileInput(QWidget):
         dfs = []
         for filename in filenames:
             df = self.read_file(filename)
+            if df.empty:
+                continue
+
             df['filename'] = os.path.basename(filename)
             dfs.append(df)
         self.df = pd.concat(dfs)

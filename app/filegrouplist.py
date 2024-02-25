@@ -1,4 +1,4 @@
-from PyQt6.QtWidgets import QWidget, QHBoxLayout, QVBoxLayout, QPushButton, QInputDialog, QMessageBox
+from PyQt6.QtWidgets import QWidget, QHBoxLayout, QVBoxLayout, QPushButton, QInputDialog, QMessageBox, QSizePolicy
 from PyQt6.QtCore import pyqtSignal
 import pandas as pd
 
@@ -24,7 +24,9 @@ class FileGroupList(QWidget):
         
         self.file_groups = []
 
-        layout.addLayout(QHBoxLayout())
+        groups_layout = QHBoxLayout()
+        groups_layout.addStretch()
+        layout.addLayout(groups_layout)
         self.setLayout(layout)
 
     def add_group(self):
@@ -35,11 +37,12 @@ class FileGroupList(QWidget):
             QMessageBox.critical(self, "Error", "Group name already exists")
             return
         
-
         file_group = FileGroup(group_name)
         file_group.files_opened.connect(self.files_changed)
+        file_group.setFixedHeight(200)
+        file_group.setMaximumWidth(250)
         self.file_groups.append(file_group)
-        self.layout().itemAt(1).addWidget(file_group)
+        self.layout().itemAt(1).layout().insertWidget(len(self.file_groups) - 1, file_group)
 
     def remove_group(self):
         if not self.file_groups:
@@ -53,6 +56,9 @@ class FileGroupList(QWidget):
         dfs = []
         for file_group in self.file_groups:
             df = file_group.file_input.df
+            if df.empty:
+                continue
+
             df['groupname'] = file_group.title_label.text()
             dfs.append(df)
         self.df = pd.concat(dfs) if dfs else pd.DataFrame()

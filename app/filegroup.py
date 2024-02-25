@@ -1,9 +1,9 @@
-from PyQt6.QtWidgets import QWidget, QVBoxLayout, QLabel, QListWidget
+from PyQt6.QtWidgets import QFrame, QWidget, QVBoxLayout, QLabel, QListWidget
 from PyQt6.QtCore import pyqtSignal
 
 from .fileinput import FileInput
 
-class FileGroup(QWidget):
+class FileGroup(QFrame):
 
     files_opened = pyqtSignal(list)
 
@@ -22,7 +22,9 @@ class FileGroup(QWidget):
         self.file_input.files_opened.connect(self.files_opened)
         layout.addWidget(self.file_input)
 
+        layout.addStretch()
         self.setLayout(layout)
+        self.setFrameStyle(QFrame.Shape.Panel | QFrame.Shadow.Raised)
 
     def update_list(self, file_list):
         self.file_list.clear()
