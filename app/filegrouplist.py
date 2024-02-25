@@ -55,11 +55,11 @@ class FileGroupList(QWidget):
     def files_changed(self, file_list):
         dfs = []
         for file_group in self.file_groups:
-            df = file_group.file_input.df
+            df = file_group.file_input.df.copy()
             if df.empty:
                 continue
-
-            df['groupname'] = file_group.title_label.text()
+            if len(self.file_groups) > 1:
+                df['groupname'] = file_group.title_label.text()
             dfs.append(df)
         self.df = pd.concat(dfs) if dfs else pd.DataFrame()
 
