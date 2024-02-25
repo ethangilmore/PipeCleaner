@@ -23,7 +23,7 @@ class ProcessingPipeline(QWidget):
             data_processor.reprocess.connect(self.process)
 
         self.setLayout(layout)
-        self._df = None
+        self._df = pd.DataFrame()
 
     def set_data(self, df):
         self._df = df

@@ -17,7 +17,7 @@ class FileInput(QWidget):
         layout.addWidget(self.file_button)
 
         self.setLayout(layout)
-        self.df = None
+        self.df = pd.DataFrame()
 
     def read_file(self, filename):
         if filename.endswith(".csv"):
@@ -30,7 +30,9 @@ class FileInput(QWidget):
             raise ValueError("File type not supported")
 
     def open_files(self):
-        filenames, _ = QFileDialog.getOpenFileNames(self)
+        filenames, ok = QFileDialog.getOpenFileNames(self)
+        if not ok:
+            return
 
         dfs = []
         for filename in filenames:
