@@ -37,22 +37,26 @@ class FileGroupList(QWidget):
         
 
         file_group = FileGroup(group_name)
-        file_group.files_opened.connect(self.files_opened)
+        file_group.files_opened.connect(self.files_changed)
         self.file_groups.append(file_group)
         self.layout().itemAt(1).addWidget(file_group)
 
     def remove_group(self):
-        if self.file_groups:
-            file_group = self.file_groups.pop()
-            file_group.deleteLater()
+        if not self.file_groups:
+            return
 
-    def files_opened(self, file_list):
+        file_group = self.file_groups.pop()
+        file_group.deleteLater()
+        self.files_changed([])
+
+    def files_changed(self, file_list):
         dfs = []
         for file_group in self.file_groups:
             df = file_group.file_input.df
             df['groupname'] = file_group.title_label.text()
             dfs.append(df)
-        self.df = pd.concat(dfs)
+        self.df = pd.concat(dfs) if dfs else pd.DataFrame()
 
         self.data_changed.emit(self.df)
+        
 

@@ -18,6 +18,8 @@ class DataFrameTableModel(QAbstractTableModel):
         return None
 
     def headerData(self, section, orientation, role):
+        if len(self._df.columns) == 0:
+            return None
         if orientation == Qt.Orientation.Horizontal and role == Qt.ItemDataRole.DisplayRole:
             return self._df.columns[section]
         return None
