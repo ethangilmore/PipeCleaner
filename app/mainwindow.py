@@ -1,7 +1,7 @@
 from PyQt6.QtWidgets import QMainWindow, QWidget, QVBoxLayout
 import pandas as pd
 
-from .fileinput import FileInput
+from .filegrouplist import FileGroupList
 from .processingpipeline import ProcessingPipeline
 from .dataframetable import DataFrameTable
 
@@ -12,12 +12,12 @@ class MainWindow(QMainWindow):
         layout = QVBoxLayout()
         self.setWindowTitle("Pipe Cleaner")
 
-        self.file_input = FileInput()
-        layout.addWidget(self.file_input)
-        
+        self.file_group_list = FileGroupList()
+        layout.addWidget(self.file_group_list)
+
         self.processing_pipeline = ProcessingPipeline()
         layout.addWidget(self.processing_pipeline)
-        self.file_input.data_changed.connect(self.processing_pipeline.set_df)
+        self.file_group_list.data_changed.connect(self.processing_pipeline.set_data)
 
         self.preview_table = DataFrameTable()
         layout.addWidget(self.preview_table)

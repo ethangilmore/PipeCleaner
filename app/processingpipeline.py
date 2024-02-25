@@ -2,7 +2,7 @@ from PyQt6.QtWidgets import QWidget, QVBoxLayout
 from PyQt6.QtCore import pyqtSignal
 import pandas as pd
 
-from .dataprocessors import ProbabilityFilter, ContaminantFilter
+from .dataprocessors import ProbabilityFilter, ContaminantFilter, ModificationFilter
 
 class ProcessingPipeline(QWidget):
 
@@ -14,7 +14,8 @@ class ProcessingPipeline(QWidget):
 
         self.data_processors = [
             ProbabilityFilter(title="Filter by Probability"),
-            ContaminantFilter(title="Filter by Contaminant")
+            ContaminantFilter(title="Filter by Contaminant"),
+            ModificationFilter(title="Filter by Modification")
         ]
 
         for data_processor in self.data_processors:
@@ -24,7 +25,7 @@ class ProcessingPipeline(QWidget):
         self.setLayout(layout)
         self._df = None
 
-    def set_df(self, df):
+    def set_data(self, df):
         self._df = df
         self.process()
     
