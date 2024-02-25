@@ -1,4 +1,4 @@
-from PyQt6.QtWidgets import QFrame, QVBoxLayout, QHBoxLayout, QLabel, QCheckBox
+from PyQt6.QtWidgets import QApplication, QFrame, QVBoxLayout, QHBoxLayout, QLabel, QCheckBox
 from PyQt6.QtCore import pyqtSignal
     
 class ProcessingModule(QFrame):
@@ -6,6 +6,8 @@ class ProcessingModule(QFrame):
     reprocess = pyqtSignal()
 
     def __init__(self, data_processor):
+        if not QApplication.instance():
+            return
         super().__init__()
         layout = QVBoxLayout()
         header_layout = QHBoxLayout()
