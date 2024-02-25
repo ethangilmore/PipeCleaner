@@ -2,7 +2,7 @@
 
 Pipe Cleaner is an application to clean the data output from FragPipe and MSFragger. Pipe Cleaner makes it easy to filter data using peptide accuracy, protein keywords, and post translational modifications.
 
-# Installaion
+# Installation
 
 
 
@@ -18,7 +18,7 @@ To create a group, click the "Add Group" button, and input a name for the group.
 
 Pipe cleaner currently comes with 3 built in filters. These filters can be toggeled on and off using the checkbox in the upper left corner.
 
-### Filter by Probabiltiy
+### Filter by Probability
 
 To filter peptides by probability, first select the column containing the accuracy using the dropdown menu. Then input the desired accuracy threshold. This will discard any peptides with accuracy less than the input threshold, and keep peptides with accuracty greater than or equal to the threshold.
 

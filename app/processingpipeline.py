@@ -14,7 +14,7 @@ class ProcessingPipeline(QWidget):
 
         self.data_processors = [
             ProbabilityFilter(title="Filter by Probability"),
-            ContaminantFilter(title="Filter by Contaminant"),
+            ContaminantFilter(title="Exclude Proteins"),
             ModificationFilter(title="Filter by Modification")
         ]
 

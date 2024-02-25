@@ -18,7 +18,7 @@ class ModificationFilter(QWidget):
         modification_layout = QHBoxLayout()
 
         # column to filter
-        input_layout.addWidget(QLabel("column to filter"))
+        input_layout.addWidget(QLabel("Column to filter"))
         self.column_dropdown = ColumnDropdown()
         self.column_dropdown.currentIndexChanged.connect(self.reprocess)
         self.column_dropdown.setSizeAdjustPolicy(QComboBox.SizeAdjustPolicy.AdjustToContents)
